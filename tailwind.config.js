@@ -13,12 +13,12 @@ module.exports = {
         logo: ["TanPearl", "serif"],
         euclid: ["EuclidCircularA", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
+        barlow: ["Barlow", "sans-serif"],
       },
       colors: {
         dark: "#111111",
         darker: "#080808",
       },
-      transitionProperty: { maxheight: "max-height" },
       scale: {
         hover: "1.03",
       },

@@ -13,7 +13,7 @@ const Input: FC<InputProps> = ({ name, type, placeholder }) => {
     <>
       <label
         htmlFor={inputId}
-        className="block font-bold text-md text-gray-600 mb-2"
+        className="block mb-2 font-bold text-gray-300 text-md"
       >
         {name}
       </label>
@@ -22,7 +22,7 @@ const Input: FC<InputProps> = ({ name, type, placeholder }) => {
         name={name.toLowerCase()}
         placeholder={placeholder}
         id={inputId}
-        className="appearance-none w-full p-2 border rounded shadow focus:outline-none focus:ring ring-blue-500 ring-offset-0 text-gray-600"
+        className="p-2 w-full text-gray-600 rounded border ring-blue-500 ring-offset-0 shadow appearance-none focus:outline-none focus:ring"
       />
     </>
   );

@@ -13,6 +13,10 @@
     font-family: "EuclidCircularA";
     src: url("/fonts/EuclidCircularA.woff2");
   }
+  @font-face {
+    font-family: "Barlow";
+    src: url("/fonts/barlow.woff2");
+  }
 }
 
 html {

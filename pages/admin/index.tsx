@@ -33,7 +33,7 @@ const Admin = () => {
         <div className="flex gap-5">
           <span className="text-3xl">Blogs</span>
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            className="px-4 py-2 font-semibold text-white bg-blue-700 rounded hover:bg-blue-600"
             onClick={() => setModalOpen(true)}
           >
             New Blog

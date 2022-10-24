@@ -30,10 +30,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen font-sans bg-gray-100">
+    <div className="flex flex-col justify-center items-center w-screen h-screen font-sans bg-dark">
       <form
         onSubmit={formSubmit}
-        className="w-5/6 max-w-sm py-6 px-8 bg-white rounded shadow-md"
+        className="px-8 py-6 w-5/6 max-w-sm bg-gray-800 rounded"
       >
         <div className="mb-4">
           <Input name="Email" type="email" placeholder="Enter email" />
@@ -47,7 +47,7 @@ const Login = () => {
             />
           </div>
         </div>
-        <button className="block px-10 py-2 bg-blue-500 text-white rounded font-bold text-md mx-auto mt-8">
+        <button className="block px-10 py-2 mx-auto mt-8 font-bold text-white bg-blue-700 rounded text-md">
           Login
         </button>
       </form>

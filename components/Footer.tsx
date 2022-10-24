@@ -7,24 +7,24 @@ const Footer = () => {
   const width = useWindowWidth();
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between px-10 py-10 md:py-16 border-t-2 border-gray-800 gap-4 mt-auto">
+    <div className="flex flex-col gap-4 justify-between items-center px-10 py-10 mt-auto border-t-2 border-gray-800 md:flex-row md:py-16">
       <div className="md:w-40">
         <span
-          className="font-logo text-4xl font-bold cursor-pointer"
+          className="text-4xl font-bold cursor-pointer font-logo"
           onClick={() => Router.push("/")}
         >
           thc
         </span>
       </div>
-      <span className="font-euclid text-sm md:text-base">
+      <span className="text-sm font-barlow md:text-base">
         Made with &lt;3 by devs @thc
       </span>
       {width >= 768 ? (
         <IconContext.Provider value={{ size: "1.6rem" }}>
-          <div className="flex items-center justify-end gap-5 cursor-pointer w-40">
-            <FiFacebook className="transition-opacity opacity-70 hover:opacity-100" />
-            <FiInstagram className="transition-opacity opacity-70 hover:opacity-100" />
-            <FiYoutube className="transition-opacity opacity-70 hover:opacity-100" />
+          <div className="flex gap-5 justify-end items-center w-40 cursor-pointer">
+            <FiFacebook className="opacity-70 transition-opacity hover:opacity-100" />
+            <FiInstagram className="opacity-70 transition-opacity hover:opacity-100" />
+            <FiYoutube className="opacity-70 transition-opacity hover:opacity-100" />
           </div>
         </IconContext.Provider>
       ) : null}

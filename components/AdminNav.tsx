@@ -9,17 +9,17 @@ const AdminNav = () => {
 
   return (
     <>
-      <div className="flex px-10 py-4 w-full justify-between items-center relative z-10 bg-white justify-self-start shadow-md">
+      <div className="flex relative z-10 justify-between justify-self-start items-center px-10 py-4 w-full shadow-md bg-darker">
         <div>
           <span
-            className="font-logo text-2xl font-bold cursor-pointer"
+            className="text-2xl font-bold cursor-pointer font-logo"
             onClick={() => Router.push("/admin/")}
           >
             thc
           </span>
         </div>
         <div
-          className={`flex items-center gap-4 md:gap-10 flex-col md:flex-row absolute md:static left-0 right-0 bottom-0 translate-y-full md:transform-none pb-3 md:pb-0 bg-white ${
+          className={`flex items-center gap-4 md:gap-10 flex-col md:flex-row absolute md:static left-0 right-0 bottom-0 translate-y-full md:transform-none pb-3 md:pb-0 bg-darker ${
             navActive || width >= 768 ? "" : "hidden  "
           }`}
         >
@@ -28,7 +28,7 @@ const AdminNav = () => {
           <Link href="/admin/logout">Log out</Link>
         </div>
         <BiMenu
-          className="block md:hidden cursor-pointer hover:opacity-60"
+          className="block cursor-pointer md:hidden hover:opacity-60"
           fontSize="1.8rem"
           onClick={() => setNavActive(!navActive)}
         />

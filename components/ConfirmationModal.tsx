@@ -15,19 +15,19 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
         className="fixed inset-0 z-20 bg-black opacity-50"
         onClick={onReject}
       ></div>
-      <div className="fixed w-11/12 max-w-md bg-white rounded-md z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 text-center flex flex-col gap-12">
-        <span className="font-medium text-lg ">
-          Are you sure you want to continue?
+      <div className="flex fixed top-1/2 left-1/2 z-30 flex-col gap-12 p-6 w-11/12 max-w-md text-center bg-gray-700 rounded-md -translate-x-1/2 -translate-y-1/2">
+        <span className="text-xl font-medium">
+          Are you sure you want to proceed?
         </span>
-        <div className="flex justify-center gap-6 flex-col md:flex-row w-fit items-center mx-auto">
+        <div className="flex flex-col gap-6 justify-center items-center mx-auto md:flex-row w-fit">
           <button
-            className="block px-10 py-2 bg-blue-500 text-white rounded font-bold text-md"
+            className="block px-10 py-2 font-bold text-white bg-blue-500 rounded text-md"
             onClick={onConfirm}
           >
             Yes
           </button>
           <button
-            className="block px-10 py-2 bg-red-500 text-white rounded font-bold text-md"
+            className="block px-10 py-2 font-bold text-white bg-red-500 rounded text-md"
             onClick={onReject}
           >
             Cancel
