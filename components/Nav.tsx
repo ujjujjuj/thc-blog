@@ -56,9 +56,18 @@ const Nav = () => {
             </div>
             <IconContext.Provider value={{ size: "1.4rem" }}>
               <div className="flex gap-5 items-center cursor-pointer">
-                <FiFacebook className="opacity-70 transition-opacity hover:opacity-100" />
-                <FiInstagram className="opacity-70 transition-opacity hover:opacity-100" />
-                <FiYoutube className="opacity-70 transition-opacity hover:opacity-100" />
+                <a target="_blank" href="https://www.instagram.com/thc.nsut/">
+                  <FiFacebook className="opacity-70 transition-opacity hover:opacity-100" />
+                </a>
+                <a target="_blank" href="https://www.instagram.com/thc.nsut/">
+                  <FiInstagram className="opacity-70 transition-opacity hover:opacity-100" />
+                </a>
+                <a
+                  target="_blank"
+                  href="https://www.youtube.com/channel/UCHhz9XGrUHrN8w3Hq6-2Cmw"
+                >
+                  <FiYoutube className="opacity-70 transition-opacity hover:opacity-100" />
+                </a>
               </div>
             </IconContext.Provider>
           </div>

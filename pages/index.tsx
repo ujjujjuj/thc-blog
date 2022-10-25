@@ -9,6 +9,7 @@ import { useState } from "react";
 import BlogCard from "../components/BlogCard";
 import Router from "next/router";
 import shimmerUrl from "../utils/shimmerUrl";
+import useWindowWidth from "../hooks/useWindowWidth";
 
 const categories = [
   "Travel",
@@ -22,13 +23,14 @@ const categories = [
 
 const Home: NextPage = () => {
   const [cat, setCat] = useState(0);
+  const width = useWindowWidth();
 
   return (
     <>
       <Nav />
       <div className="flex flex-col items-center px-5 py-8 w-full md:px-10">
         <div className="mb-8 w-full text-center border-b-2 border-gray-800">
-          <h1 className="font-poppins font-black text-[16vw] md:text-9xl pb-4">
+          <h1 className="font-poppins font-black text-[16vw] md:text-9xl pb-4 ">
             THC BLOG
             {/* <div className="my-8 w-full h-px bg-gray-800"></div> */}
           </h1>
@@ -66,7 +68,13 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="flex flex-col flex-1 gap-10">
-            <OtherBlogs />
+            <h3
+              className={`text-3xl font-bold font-poppins right-0 ${
+                width >= 1024 ? "" : "text-center"
+              }	`}
+            >
+              Trending Right Now
+            </h3>
             <OtherBlogs />
             <OtherBlogs />
             <OtherBlogs />

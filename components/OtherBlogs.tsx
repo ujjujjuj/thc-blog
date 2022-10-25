@@ -20,7 +20,7 @@ const OtherBlogs = () => {
           <span className="text-gray-600">October 18, 2022</span>
           <span className="text-xl md:text-2xl">
             This is the title of your Blog Cover Story, we get it boi lmao
-            alright
+            alright LOLLL
           </span>
           <div className="flex gap-2 items-center text-gray-600">
             <FaRegUserCircle />

@@ -8,6 +8,8 @@ import { GetServerSideProps } from "next";
 import addAuth from "../../utils/addAuth";
 import { Blog } from "@prisma/client";
 import { FC } from "react";
+import { IoMdDoneAll } from "react-icons/io";
+
 import Image from "next/image";
 
 interface AdminHomeProps {
@@ -39,70 +41,158 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
           onReject={() => setModalOpen(false)}
         />
       ) : null}
-      <div className="px-10 py-4">
-        <div className="flex gap-5">
-          <span className="text-3xl">Blogs</span>
-          <button
+      <div className="px-10 py-4 my-4">
+        <div className="flex gap-5 justify-between">
+          <div className="flex">
+            <span className="text-5xl font-poppins font-black">Your Blogs</span>
+          </div>
+          {/* <button
             className="px-4 py-2 font-semibold text-white bg-blue-700 rounded hover:bg-blue-600"
             onClick={() => setModalOpen(true)}
           >
             New Blog
-          </button>
+          </button> */}
+
+          <div className="flex">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="select-none cursor-pointer rounded-lg border-2 border-gray-200
+   py-3 px-6 font-bold text-gray-200 transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900 hover:border-gray-200 	"
+            >
+              Create Blog
+            </button>
+          </div>
         </div>
-        <div className="mt-6 text-xl font-bold font-poppins">
-          Published blogs
+        <div className="flex row  mt-12 text-xl font-medium text-slate-300	 font-poppins justify-center md:justify-start">
+          <p className="mx-3"> Published blogs</p> <IoMdDoneAll />
         </div>
         <div className="flex flex-wrap gap-8 items-center my-8">
           {blogs
             .filter((blog) => blog.published)
             .map((blog, idx) => (
               <div
+                className=" w-full md:w-[30%] xl:w-[30%] px-4  h-[32em] "
                 key={idx}
-                className="flex flex-col flex-nowrap p-4 h-[32rem] w-full max-w-sm bg-gray-700 rounded-md transition-transform cursor-pointer hover:scale-hover"
-                onClick={() => Router.push(`/admin/editblog?id=${blog.id}`)}
               >
-                <div className="relative h-72">
-                  <Image
-                    src={blog.coverImage}
-                    alt={blog.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-                <p className="mt-4 text-2xl font-bold text-center font-poppins">
-                  {blog.title}
-                </p>
-                <div className="flex-1 mt-4 text-sm truncate whitespace-[break-spaces] font-poppins">
-                  {blog.content}
+                <div className="bg-white rounded-lg overflow-hidden mb-10 h-[32rem]">
+                  <div className="relative h-72">
+                    <Image
+                      src={blog.coverImage}
+                      alt={blog.title}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
+                    <h3>
+                      <a
+                        href="javascript:void(0)"
+                        className="
+                        font-semibold
+                        text-dark text-xl
+                        sm:text-[22px]
+                        md:text-xl
+                        lg:text-[22px]
+                        xl:text-xl
+                        2xl:text-[22px]
+                        mb-4
+                        block
+                        hover:text-primary
+                        "
+                      >
+                        {blog.title}
+                      </a>
+                    </h3>
+                    <p className="text-base text-slate-500	 leading-relaxed mb-7 truncate whitespace-[break-spaces]">
+                      {blog.content}
+                    </p>
+                    <a
+                      href="javascript:void(0)"
+                      className="
+                     inline-block
+                     py-2
+                     px-7
+                     border border-[#E5E7EB]
+                     rounded-full
+                     text-base text-slate-500	
+                     font-medium
+                     hover:border-primary hover:bg-primary hover:text-black
+                     transition
+                     "
+                      onClick={() =>
+                        Router.push(`/admin/editblog?id=${blog.id}`)
+                      }
+                    >
+                      Update Blog
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
         </div>
-        <div className="mt-6 text-xl font-bold font-poppins">
-          Unpublished blogs
+        <div className="mt-12 text-xl font-medium text-slate-300	 font-poppins justify-center md:justify-start">
+          <p> Unpublished blogs</p>
         </div>
         <div className="flex flex-wrap gap-8 items-center my-8">
           {blogs
             .filter((blog) => !blog.published)
             .map((blog, idx) => (
               <div
+                className=" w-full md:w-[30%] xl:w-[30%] px-4  h-[32em] "
                 key={idx}
-                className="flex flex-col flex-nowrap p-4 h-[32rem] w-full max-w-sm bg-gray-700 rounded-md transition-transform cursor-pointer hover:scale-hover"
-                onClick={() => Router.push(`/admin/editblog?id=${blog.id}`)}
               >
-                <div className="relative h-72">
-                  <Image
-                    src={blog.coverImage}
-                    alt={blog.slug}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-                <p className="mt-4 text-2xl font-bold text-center font-poppins">
-                  {blog.title}
-                </p>
-                <div className="flex-1 mt-4 text-sm truncate whitespace-[break-spaces] font-poppins">
-                  {blog.content}
+                <div className="bg-white rounded-lg overflow-hidden mb-10 h-[32rem]">
+                  <div className="relative h-72">
+                    <Image
+                      src={blog.coverImage}
+                      alt={blog.title}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
+                    <h3>
+                      <a
+                        href="javascript:void(0)"
+                        className="
+                        font-semibold
+                        text-dark text-xl
+                        sm:text-[22px]
+                        md:text-xl
+                        lg:text-[22px]
+                        xl:text-xl
+                        2xl:text-[22px]
+                        mb-4
+                        block
+                        hover:text-primary
+                        "
+                      >
+                        {blog.title}
+                      </a>
+                    </h3>
+                    <p className="text-base text-slate-500	 leading-relaxed mb-7 truncate whitespace-[break-spaces]">
+                      {blog.content}
+                    </p>
+                    <a
+                      href="javascript:void(0)"
+                      className="
+                     inline-block
+                     py-2
+                     px-7
+                     border border-[#E5E7EB]
+                     rounded-full
+                     text-base text-slate-500	
+                     font-medium
+                     hover:border-primary hover:bg-primary hover:text-black
+                     transition
+                     "
+                      onClick={() =>
+                        Router.push(`/admin/editblog?id=${blog.id}`)
+                      }
+                    >
+                      Finish Blog
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}

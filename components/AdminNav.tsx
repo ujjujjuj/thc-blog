@@ -19,7 +19,7 @@ const AdminNav = () => {
           </span>
         </div>
         <div
-          className={`flex items-center gap-4 md:gap-10 flex-col md:flex-row absolute md:static left-0 right-0 bottom-0 translate-y-full md:transform-none pb-3 md:pb-0 bg-darker ${
+          className={`font-poppins text-slate-300	 font-bold flex items-center gap-4 md:gap-10 flex-col md:flex-row absolute md:static left-0 right-0 bottom-0 translate-y-full md:transform-none pb-3 md:pb-0 bg-darker ${
             navActive || width >= 768 ? "" : "hidden  "
           }`}
         >

@@ -5,7 +5,9 @@ const Trips = () => {
   return (
     <>
       <Nav />
-      trips
+      <div className="flex justify-center items-center flex-col gap-4 flex-1 font-euclid">
+        <h1 className="text-5xl">Trips</h1>
+      </div>
       <Footer />
     </>
   );

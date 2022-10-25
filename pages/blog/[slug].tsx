@@ -61,7 +61,7 @@ const Blog: FC<BlogProps> = ({ blog }) => {
             </div>
             <div className="py-12 font-euclid">
               <span className="text-5xl font-bold">{blog.title}</span>
-              <p className="mt-4 text-lg font-medium text-gray-200 whitespace-pre-line">
+              <p className="my-4 mt-4 text-lg font-small  text-gray-400 whitespace-pre-line">
                 {blog.content}
               </p>
               <p className="mt-6 font-bold">Authored by: {blog.author.name}</p>

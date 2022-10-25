@@ -47,57 +47,103 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
   return (
     <>
       <AdminNav />
-      <div className="flex gap-5 px-10 pt-4">
+      <div className="mt-5 flex gap-5 px-10 pt-4">
         <button
-          className="px-4 py-2 font-semibold text-white bg-blue-700 rounded hover:bg-blue-600"
+          className="px-4 py-2 font-semibold text-white bg-emerald-700 rounded hover:bg-emerald-800"
           onClick={() => Router.back()}
         >
           <IoArrowBackSharp />
         </button>
-        <span className="text-3xl">Blogs</span>
+        <span className="text-3xl font-poppins font-bold">
+          Edit Your Blog Here
+        </span>
       </div>
-      <form onSubmit={saveChanges} ref={formRef}>
-        <div className="flex flex-col gap-4 items-start px-10 py-4">
-          <input
-            name="title"
-            type="text"
-            placeholder="Enter Blog Title"
-            defaultValue={blog.title}
-            className="p-2 w-full max-w-xl text-black"
-          />
 
-          <textarea
-            name="content"
-            className="p-2 w-full text-black min-h-[12rem]"
-            placeholder="Enter content here..."
-            defaultValue={blog.content}
-          ></textarea>
-          <input
-            name="priority"
-            type="number"
-            placeholder="Priority (higher is better)"
-            className="p-2 text-black"
-            defaultValue={blog.priority}
-          />
+      <div className="flex items-center justify-center p-12">
+        <div className="mx-auto w-full max-w-[1000px] bg-teal-50 rounded-md	">
+          <form onSubmit={saveChanges} ref={formRef} className="py-6 px-9">
+            <div className="mb-5">
+              <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
+                Title
+              </label>
+              <input
+                name="title"
+                type="text"
+                placeholder="Enter Blog Title"
+                defaultValue={blog.title}
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
+              />
+            </div>
+            <div className="mb-5">
+              <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
+                Content
+              </label>
 
-          <input
-            name="coverImage"
-            type="file"
-            placeholder="Enter Blog Title"
-            accept="image/*"
-          />
-          <div className="my-3">
-            <Checkbox
-              name="Publish"
-              value={publish}
-              onChange={() => setPublish(!publish)}
-            />
-          </div>
-          <button className="px-4 py-2 font-semibold text-white bg-blue-600 rounded hover:bg-blue-700">
-            Save Changes
-          </button>
+              <textarea
+                name="content"
+                className="w-full min-h-[20rem] rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
+                placeholder="Enter content here..."
+                defaultValue={blog.content}
+              ></textarea>
+            </div>
+            <div className="mb-5">
+              <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
+                Priority Number
+              </label>
+              <input
+                name="priority"
+                type="number"
+                placeholder="Priority (higher is better)"
+                className=" rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
+                defaultValue={blog.priority}
+              />
+            </div>
+            <div className="mb-6 pt-4">
+              {/* <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
+                Upload Cover Image
+              </label> */}
+
+              <div className="mb-8">
+                <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+                  <div>
+                    <span className="mb-2 block text-xl font-semibold text-[#07074D]">
+                      Drop or Select files
+                    </span>
+                  </div>
+                  <input
+                    name="coverImage"
+                    type="file"
+                    placeholder="Browse"
+                    accept="image/*"
+                    className="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]"
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="mb-5">
+              <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
+                Publish ?
+              </label>
+              <div className="my-3">
+                <Checkbox
+                  name="Publish"
+                  value={publish}
+                  onChange={() => setPublish(!publish)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="hover:shadow-form w-full rounded-md bg-emerald-700 py-3 px-8 text-center text-base font-semibold text-white outline-none"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </>
   );
 };
