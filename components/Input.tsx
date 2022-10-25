@@ -4,9 +4,10 @@ interface InputProps {
   name: string;
   type: string;
   placeholder: string;
+  defaultValue?: string;
 }
 
-const Input: FC<InputProps> = ({ name, type, placeholder }) => {
+const Input: FC<InputProps> = ({ name, type, placeholder, defaultValue }) => {
   const inputId = useId();
 
   return (
@@ -19,10 +20,11 @@ const Input: FC<InputProps> = ({ name, type, placeholder }) => {
       </label>
       <input
         type={type}
-        name={name.toLowerCase()}
+        name={name.replaceAll(" ", "").toLowerCase()}
         placeholder={placeholder}
         id={inputId}
-        className="p-2 w-full text-gray-600 rounded border ring-blue-500 ring-offset-0 shadow appearance-none focus:outline-none focus:ring"
+        defaultValue={defaultValue}
+        className={`p-2 w-full text-gray-600 rounded border ring-blue-500 ring-offset-0 shadow appearance-none focus:outline-none focus:ring`}
       />
     </>
   );

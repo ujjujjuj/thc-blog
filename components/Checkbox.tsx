@@ -2,11 +2,12 @@ import { FC, SyntheticEvent, useId } from "react";
 
 interface CheckboxProps {
   name: string;
-  value: Boolean;
+  value: boolean;
   onChange: (e: SyntheticEvent) => void;
 }
 const Checkbox: FC<CheckboxProps> = ({ name, value, onChange }) => {
   const checkboxId = useId();
+  console.log(value);
 
   return (
     <label
@@ -15,7 +16,8 @@ const Checkbox: FC<CheckboxProps> = ({ name, value, onChange }) => {
     >
       <input
         type="checkbox"
-        value={value ? "checked" : "unchecked"}
+        // value={value ? "checked" : "unchecked"}
+        checked={value}
         onChange={onChange}
         id={checkboxId}
         className="sr-only peer"

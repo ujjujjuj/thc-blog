@@ -21,10 +21,10 @@ const CategorySelect: FC<CategorySelectProps> = ({
   return (
     <div className="py-4 border-gray-300 lg:pr-16 lg:border-r-2">
       <div
-        className="flex gap-2 items-center mb-6 cursor-pointer lg:cursor-default"
+        className="flex flex-wrap gap-2 items-center mb-6 cursor-pointer lg:cursor-default"
         onClick={() => setIsActive(!isActive)}
       >
-        <span className="text-3xl font-bold text-gray-400 font-euclid">
+        <span className="text-2xl font-bold text-gray-400 sm:text-3xl font-euclid">
           CATEGORIES
         </span>
         {width < LG ? (

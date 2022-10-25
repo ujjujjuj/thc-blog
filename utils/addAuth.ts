@@ -1,13 +1,13 @@
 import { User } from "@prisma/client";
 import Cookies from "cookies";
-import { NextApiRequest, NextApiResponse } from "next";
+import { IncomingMessage, ServerResponse } from "http";
 import { prisma } from "../prisma/db";
 import { decode } from "./jwt";
 
 export default async function addAuth(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<User | undefined> {
+  req: IncomingMessage,
+  res: ServerResponse
+): Promise<User | null> {
   const cookies = new Cookies(req, res);
   if (cookies.get("auth")) {
     let id: number;
@@ -16,7 +16,7 @@ export default async function addAuth(
       id = decoded.id;
     } catch (e) {
       console.log(e);
-      return undefined;
+      return null;
     }
     const user = await prisma.user.findUnique({
       where: { id },
@@ -26,5 +26,5 @@ export default async function addAuth(
     }
   }
 
-  return undefined;
+  return null;
 }

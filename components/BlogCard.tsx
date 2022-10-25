@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
+import shimmerUrl from "../utils/shimmerUrl";
+
 
 const BlogCard = () => {
   return (
@@ -10,6 +12,8 @@ const BlogCard = () => {
           alt="blog image"
           layout="fill"
           objectFit="cover"
+          placeholder="blur"
+          blurDataURL={shimmerUrl}
         />
       </div>
       <div className="flex flex-col gap-3 px-4 font-euclid">

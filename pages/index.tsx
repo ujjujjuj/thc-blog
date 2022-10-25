@@ -8,6 +8,7 @@ import CategorySelect from "../components/CategorySelect";
 import { useState } from "react";
 import BlogCard from "../components/BlogCard";
 import Router from "next/router";
+import shimmerUrl from "../utils/shimmerUrl";
 
 const categories = [
   "Travel",
@@ -43,6 +44,8 @@ const Home: NextPage = () => {
                 alt="blog1"
                 layout="fill"
                 objectFit="cover"
+                placeholder="blur"
+                blurDataURL={shimmerUrl}
               />
             </div>
             <div className="flex justify-between pt-6 w-full text-gray-600">
