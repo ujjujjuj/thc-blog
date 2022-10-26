@@ -11,12 +11,14 @@ const AdminNav = () => {
     <>
       <div className="flex relative z-10 justify-between justify-self-start items-center px-10 py-4 w-full shadow-md bg-darker">
         <div>
-          <span
-            className="text-2xl font-bold cursor-pointer font-logo"
-            onClick={() => Router.push("/admin/")}
-          >
-            thc
-          </span>
+          <Link href="/">
+            <span
+              className="text-2xl font-bold cursor-pointer font-logo"
+              onClick={() => Router.push("/admin/")}
+            >
+              thc
+            </span>
+          </Link>
         </div>
         <div
           className={`font-poppins text-slate-300	 font-bold flex items-center gap-4 md:gap-10 flex-col md:flex-row absolute md:static left-0 right-0 bottom-0 translate-y-full md:transform-none pb-3 md:pb-0 bg-darker ${
