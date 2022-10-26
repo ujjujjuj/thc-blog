@@ -55,7 +55,8 @@ export default async function handler(
       title: data.fields.title,
       slug: slugify(data.fields.title, { lower: true, strict: true }),
       priority: parseInt(data.fields.priority),
-      coverImage:data.fields.coverImage
+      coverImage: data.fields.coverImage,
+      category: data.fields.category,
     },
   });
 

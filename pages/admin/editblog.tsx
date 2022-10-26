@@ -16,6 +16,17 @@ interface EditBlogProps {
   blog: any;
 }
 
+const categories = [
+  "Travel",
+  "Comic",
+  "Fashion",
+  "College Life",
+  "Technology",
+  "Relationship",
+  "Love",
+  "Political",
+];
+
 const EditBlog: FC<EditBlogProps> = ({ blog }) => {
   const [publish, setPublish] = useState(blog.published);
   const [modalOpen, setModalOpen] = useState(false);
@@ -109,6 +120,29 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
                 placeholder="Enter content here..."
                 defaultValue={blog.content}
               ></textarea>
+            </div>
+            <div className="mb-5">
+              <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
+                Category
+              </label>
+              <select
+                id="countries"
+                className="w-full md:w-1/2  rounded-md border border-[#e0e0e0] bg-white py-3 px-8 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
+              >
+                <option selected>
+                  {blog.category ? blog.category : "Choose your Category"}
+                </option>
+
+                {categories.map((category) => {
+                  return <option value={category}>{category}</option>;
+                })}
+              </select>
+              {/* <input
+                name="category"
+                className="w-1/2  rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
+                placeholder="Choose your Category"
+                defaultValue={blog.content}
+              ></input> */}
             </div>
             <div className="mb-5">
               <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">

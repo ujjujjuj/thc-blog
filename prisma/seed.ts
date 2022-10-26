@@ -58,6 +58,11 @@ const main = async () => {
       update: {},
       create: { name: "Love" },
     }),
+    await prisma.category.upsert({
+      where: { name: "Political" },
+      update: {},
+      create: { name: "Political" },
+    }),
   ]);
 
   console.log({ admin, categories });
