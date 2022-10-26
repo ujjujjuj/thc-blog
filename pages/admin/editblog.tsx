@@ -7,6 +7,8 @@ import { GetServerSideProps } from "next";
 import addAuth from "../../utils/addAuth";
 import { FC } from "react";
 import { useRouter } from "next/router";
+import ConfirmationModal from "../../components/ConfirmationModal";
+
 import { IoArrowBackSharp } from "react-icons/io5";
 import Router from "next/router";
 
@@ -16,8 +18,14 @@ interface EditBlogProps {
 
 const EditBlog: FC<EditBlogProps> = ({ blog }) => {
   const [publish, setPublish] = useState(blog.published);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+
+  const deleteBlog = () => {
+    console.log("Deleting the Blog"); //Api bana lio delete ki
+  };
 
   const saveChanges = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -47,7 +55,14 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
   return (
     <>
       <AdminNav />
-      <div className="mt-5 flex gap-5 px-10 pt-4">
+      {modalOpen ? (
+        <ConfirmationModal
+          message="Are you sure you want to Delete this Blog?"
+          onConfirm={deleteBlog}
+          onReject={() => setModalOpen(false)}
+        />
+      ) : null}
+      <div className="mt-5 flex gap-5 px-10 pt-4 justify-between">
         <button
           className="px-4 py-2 font-semibold text-white bg-emerald-700 rounded hover:bg-emerald-800"
           onClick={() => Router.back()}
@@ -57,6 +72,15 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
         <span className="text-3xl font-poppins font-bold">
           Edit Your Blog Here
         </span>
+        <div className="flex">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="select-none cursor-pointer rounded-lg  
+   py-3 px-6 font-bold text-gray-200 bg-red-500 transition-colors duration-200 ease-in-out hover:bg-red-600 hover:text-gray-300 	"
+          >
+            DELETE
+          </button>
+        </div>
       </div>
 
       <div className="flex items-center justify-center p-12">

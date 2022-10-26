@@ -37,6 +37,7 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
       <AdminNav />
       {modalOpen ? (
         <ConfirmationModal
+          message=" Are you sure you want to proceed?"
           onConfirm={newBlog}
           onReject={() => setModalOpen(false)}
         />
