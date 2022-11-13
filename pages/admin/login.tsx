@@ -7,7 +7,9 @@ import Input from "../../components/Input";
 const Login = () => {
   const formSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+    const data: any = Object.fromEntries(
+      new FormData(e.target as HTMLFormElement)
+    );
     if (data.email.length === 0 || data.password.length === 0) {
       return toast.error("Please enter your Email and Password");
     }
@@ -27,15 +29,12 @@ const Login = () => {
   };
 
   return (
-    <div className="px-6 mx-auto w-11/12 max-w-lg">
-      <div className="w-full">
-        <div className="flex flex-col p-10 w-full bg-white rounded-xl shadow-xl">
+    <div className="mx-auto w-11/12">
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="flex flex-col items-center p-10 w-full max-w-md bg-white rounded-xl shadow-xl">
           <div>
-            <span className="mb-5 text-3xl font-bold text-left text-gray-800 font-poppins">
-              thc
-            </span>
-            <span className="mb-5 text-3xl font-bold text-left text-gray-800 font-poppins">
-              admin portal
+            <span className="mb-5 text-3xl font-bold text-gray-800 font-poppins">
+              thc admin
             </span>
           </div>
           <form action="post" className="w-full" onSubmit={formSubmit}>
