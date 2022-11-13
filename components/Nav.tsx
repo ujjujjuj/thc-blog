@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FC, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { IconContext } from "react-icons";
-import { FiFacebook, FiInstagram, FiYoutube } from "react-icons/fi";
+import { FiFacebook, FiGithub, FiInstagram, FiYoutube } from "react-icons/fi";
 import { BiMenu } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
 import useWindowWidth from "../hooks/useWindowWidth";
@@ -32,7 +32,7 @@ const Nav = () => {
 
   return (
     <>
-      <div className="relative z-10 px-10 py-4  md:pb-0 bg-darker md:bg-dark border-y-2 border-neutral-900">
+      <div className="relative z-10 px-10 py-4 md:pb-0 bg-darker md:bg-dark border-y-2 border-neutral-900">
         <div className="flex justify-between items-center">
           <div>
             <span
@@ -56,17 +56,33 @@ const Nav = () => {
             </div>
             <IconContext.Provider value={{ size: "1.4rem" }}>
               <div className="flex gap-5 items-center cursor-pointer">
-                <a target="_blank" href="https://www.instagram.com/thc.nsut/">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://www.instagram.com/thc.nsut/"
+                >
                   <FiFacebook className="opacity-70 transition-opacity hover:opacity-100" />
                 </a>
-                <a target="_blank" href="https://www.instagram.com/thc.nsut/">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://www.instagram.com/thc.nsut/"
+                >
                   <FiInstagram className="opacity-70 transition-opacity hover:opacity-100" />
                 </a>
                 <a
                   target="_blank"
+                  rel="noreferrer"
                   href="https://www.youtube.com/channel/UCHhz9XGrUHrN8w3Hq6-2Cmw"
                 >
                   <FiYoutube className="opacity-70 transition-opacity hover:opacity-100" />
+                </a>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://github.com/thc"
+                >
+                  <FiGithub className="opacity-70 transition-opacity hover:opacity-100" />
                 </a>
               </div>
             </IconContext.Provider>

@@ -8,8 +8,9 @@ import useWindowWidth, { LG } from "../../hooks/useWindowWidth";
 import { GetServerSideProps } from "next";
 import { FC } from "react";
 import { prisma } from "../../prisma/db";
+import Blog from "../../components/Blog";
 
-interface BlogProps {
+interface BlogViewProps {
   blog: any;
 }
 
@@ -28,7 +29,7 @@ const months = [
   "December",
 ];
 
-const Blog: FC<BlogProps> = ({ blog }) => {
+const BlogView: FC<BlogViewProps> = ({ blog }) => {
   const router = useRouter();
   const width = useWindowWidth();
   console.log(blog);
@@ -61,9 +62,10 @@ const Blog: FC<BlogProps> = ({ blog }) => {
             </div>
             <div className="py-12 font-euclid">
               <span className="text-5xl font-bold">{blog.title}</span>
-              <p className="my-4 mt-4 text-lg font-small  text-gray-400 whitespace-pre-line">
+              <Blog content={blog.content} />
+              {/* <p className="my-4 mt-4 text-lg text-gray-400 whitespace-pre-line font-small">
                 {blog.content}
-              </p>
+              </p> */}
               <p className="mt-6 font-bold">Authored by: {blog.author.name}</p>
             </div>
           </div>
@@ -116,4 +118,4 @@ export const getServerSideProps: GetServerSideProps = async ({
   return { props: { blog: JSON.parse(JSON.stringify(blog)) } };
 };
 
-export default Blog;
+export default BlogView;

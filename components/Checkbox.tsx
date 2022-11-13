@@ -7,7 +7,6 @@ interface CheckboxProps {
 }
 const Checkbox: FC<CheckboxProps> = ({ name, value, onChange }) => {
   const checkboxId = useId();
-  console.log(value);
 
   return (
     <label

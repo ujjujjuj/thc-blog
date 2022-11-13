@@ -88,7 +88,7 @@ const Home: NextPage = () => {
                 currentPage === number ? "bg-[#F1F5F9]" : "bg-white"
               } w-10 h-10 text-gray-800 transition-colors duration-150 rounded-full focus:shadow-outline active:bg-slate-300 hover:bg-indigo-100`}
             >
-              <p id={number.toString()} className="font-poppins font-bold">
+              <p id={number.toString()} className="font-bold font-poppins">
                 {number}
               </p>
             </button>
@@ -156,7 +156,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col  px-5 py-4 text-black bg-white lg:gap-12 md:py-12 lg:flex-row md:px-10">
+      <div className="flex flex-col px-5 py-4 text-black bg-white lg:gap-12 md:py-12 lg:flex-row md:px-10">
         <div className="col-span-2">
           <CategorySelect
             categories={categories}
@@ -164,18 +164,18 @@ const Home: NextPage = () => {
             onChange={setCat as () => void}
           />
         </div>
-        <div className=" col-span-3 flex flex-wrap flex-1 gap-12 justify-center items-center">
-          {currentItems.map((e) => {
-            return <BlogCard />;
+        <div className="flex flex-wrap flex-1 col-span-3 gap-12 justify-center items-center">
+          {currentItems.map((e,idx) => {
+            return <BlogCard key={idx} />;
           })}
         </div>
       </div>
-      <div className="flex flex-col  px-5 py-4 text-black bg-white justify-center items-center lg:gap-12 md:py-12 lg:flex-row md:px-10 ">
+      <div className="flex flex-col justify-center items-center px-5 py-4 text-black bg-white lg:gap-12 md:py-12 lg:flex-row md:px-10">
         <ul className="inline-flex space-x-2 lg:ml-[15rem]">
           <li>
             <button
               onClick={handlePrevButton}
-              className="flex items-center justify-center w-10 h-10 text-gray-800 transition-colors duration-150 rounded-full focus:shadow-outline hover:bg-indigo-100"
+              className="flex justify-center items-center w-10 h-10 text-gray-800 rounded-full transition-colors duration-150 focus:shadow-outline hover:bg-indigo-100"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                 <path
@@ -190,7 +190,7 @@ const Home: NextPage = () => {
           <li>
             <button
               onClick={handleNextButton}
-              className="flex items-center justify-center w-10 h-10 text-gray-800 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-indigo-100"
+              className="flex justify-center items-center w-10 h-10 text-gray-800 bg-white rounded-full transition-colors duration-150 focus:shadow-outline hover:bg-indigo-100"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                 <path

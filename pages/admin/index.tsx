@@ -11,6 +11,7 @@ import { FC } from "react";
 import { IoMdDoneAll } from "react-icons/io";
 
 import Image from "next/image";
+import getDescription from "../../utils/getDescription";
 
 interface AdminHomeProps {
   blogs: Array<any>;
@@ -45,7 +46,7 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
       <div className="px-10 py-4 my-4">
         <div className="flex gap-5 justify-between">
           <div className="flex">
-            <span className="text-5xl font-poppins font-black">Your Blogs</span>
+            <span className="text-5xl font-black font-poppins">Your Blogs</span>
           </div>
           {/* <button
             className="px-4 py-2 font-semibold text-white bg-blue-700 rounded hover:bg-blue-600"
@@ -57,14 +58,13 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
           <div className="flex">
             <button
               onClick={() => setModalOpen(true)}
-              className="select-none cursor-pointer rounded-lg border-2 border-gray-200
-   py-3 px-6 font-bold text-gray-200 transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900 hover:border-gray-200 	"
+              className="px-6 py-3 font-bold text-gray-200 rounded-lg border-2 border-gray-200 transition-colors duration-200 ease-in-out cursor-pointer select-none hover:bg-gray-200 hover:text-gray-900 hover:border-gray-200"
             >
               Create Blog
             </button>
           </div>
         </div>
-        <div className="flex row  mt-12 text-xl font-medium text-slate-300	 font-poppins justify-center md:justify-start">
+        <div className="flex justify-center mt-12 text-xl font-medium row text-slate-300 font-poppins md:justify-start">
           <p className="mx-3"> Published blogs</p> <IoMdDoneAll />
         </div>
         <div className="flex flex-wrap gap-8 items-center my-8">
@@ -84,7 +84,7 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                       objectFit="cover"
                     />
                   </div>
-                  <div className="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
+                  <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
                     <h3>
                       <a
                         href="javascript:void(0)"
@@ -105,7 +105,7 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                       </a>
                     </h3>
                     <p className="text-base text-slate-500	 leading-relaxed mb-7 truncate whitespace-[break-spaces]">
-                      {blog.content}
+                      {getDescription(blog.content)}
                     </p>
                     <a
                       href="javascript:void(0)"
@@ -124,14 +124,14 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                         Router.push(`/admin/editblog?id=${blog.id}`)
                       }
                     >
-                      Update Blog
+                      Edit
                     </a>
                   </div>
                 </div>
               </div>
             ))}
         </div>
-        <div className="mt-12 text-xl font-medium text-slate-300	 font-poppins justify-center md:justify-start">
+        <div className="justify-center mt-12 text-xl font-medium text-slate-300 font-poppins md:justify-start">
           <p> Unpublished blogs</p>
         </div>
         <div className="flex flex-wrap gap-8 items-center my-8">
@@ -151,7 +151,7 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                       objectFit="cover"
                     />
                   </div>
-                  <div className="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
+                  <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
                     <h3>
                       <a
                         href="javascript:void(0)"
@@ -172,7 +172,7 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                       </a>
                     </h3>
                     <p className="text-base text-slate-500	 leading-relaxed mb-7 truncate whitespace-[break-spaces]">
-                      {blog.content}
+                      {getDescription(blog.content)}
                     </p>
                     <a
                       href="javascript:void(0)"

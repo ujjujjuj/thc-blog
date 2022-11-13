@@ -16,7 +16,12 @@ export default async function handler(
   let title = generateTitle();
   let slug = slugify(title, { lower: true, strict: true });
   let blog = await prisma.blog.create({
-    data: { authorId: user.id, title, slug },
+    data: {
+      title,
+      slug,
+      author: { connect: { id: user.id } },
+      category: { connect: { name: "Default" } },
+    },
   });
 
   return res.json({ id: blog.id });

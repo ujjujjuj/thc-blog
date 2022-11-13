@@ -17,17 +17,18 @@ model User {
 }
 
 model Blog {
-  id          Int        @id @default(autoincrement())
-  title       String     @unique
-  slug        String     @unique
-  content     String     @default("")
-  coverImage  String     @default("/cover.png")
-  category    Category[]
-  author      User       @relation(fields:[authorId], references:[id])
-  authorId    Int
-  priority    Int        @default(0)
-  createdAt   DateTime   @default(now())
-  published   Boolean    @default(false)
+  id           Int        @id @default(autoincrement())
+  title        String     @unique
+  slug         String     @unique
+  content      String     @default("")
+  coverImage   String     @default("/cover.png")
+  category     Category   @relation(fields:[categoryName], references: [name])
+  categoryName String     
+  author       User       @relation(fields:[authorId], references:[id])
+  authorId     Int
+  priority     Int        @default(0)
+  createdAt    DateTime   @default(now())
+  published    Boolean    @default(false)
 }
 
 model Category {

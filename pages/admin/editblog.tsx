@@ -1,5 +1,5 @@
 import AdminNav from "../../components/AdminNav";
-import { useState, useEffect, useRef, SyntheticEvent } from "react";
+import { useState, useRef, SyntheticEvent } from "react";
 import Checkbox from "../../components/Checkbox";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -11,31 +11,38 @@ import ConfirmationModal from "../../components/ConfirmationModal";
 
 import { IoArrowBackSharp } from "react-icons/io5";
 import Router from "next/router";
+import { Category } from "@prisma/client";
+import Blog from "../../components/Blog";
 
 interface EditBlogProps {
   blog: any;
+  categories: Category[];
 }
 
-const categories = [
-  "Travel",
-  "Comic",
-  "Fashion",
-  "College Life",
-  "Technology",
-  "Relationship",
-  "Love",
-  "Political",
-];
-
-const EditBlog: FC<EditBlogProps> = ({ blog }) => {
+const EditBlog: FC<EditBlogProps> = ({ blog, categories }) => {
   const [publish, setPublish] = useState(blog.published);
   const [modalOpen, setModalOpen] = useState(false);
+  const [md, setMd] = useState(blog.content);
+  const [title, setTitle] = useState(blog.title);
 
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
   const deleteBlog = () => {
-    console.log("Deleting the Blog"); //Api bana lio delete ki
+    const blogId =
+      typeof router.query.id === "object" || router.query.id === undefined
+        ? "0"
+        : router.query.id;
+    axios
+      .post("/api/blog/delete", { id: blogId })
+      .then(() => {
+        toast.success("Blog deleted successfully");
+        Router.back();
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error("Server error.");
+      });
   };
 
   const saveChanges = (e: SyntheticEvent) => {
@@ -54,7 +61,7 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
     }
     axios
       .post("/api/blog/save", formData)
-      .then((res) => {
+      .then(() => {
         toast.success("Saved changes successfully");
       })
       .catch((e) => {
@@ -73,30 +80,29 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
           onReject={() => setModalOpen(false)}
         />
       ) : null}
-      <div className="mt-5 flex gap-5 px-10 pt-4 justify-between">
+      <div className="flex gap-5 justify-between px-10 pt-4 mt-5">
         <button
           className="px-4 py-2 font-semibold text-white bg-emerald-700 rounded hover:bg-emerald-800"
           onClick={() => Router.back()}
         >
           <IoArrowBackSharp />
         </button>
-        <span className="text-3xl font-poppins font-bold">
+        <span className="text-3xl font-bold font-poppins">
           Edit Your Blog Here
         </span>
         <div className="flex">
           <button
             onClick={() => setModalOpen(true)}
-            className="select-none cursor-pointer rounded-lg  
-   py-3 px-6 font-bold text-gray-200 bg-red-500 transition-colors duration-200 ease-in-out hover:bg-red-600 hover:text-gray-300 	"
+            className="px-6 py-3 font-bold text-gray-200 bg-red-500 rounded-lg transition-colors duration-200 ease-in-out cursor-pointer select-none hover:bg-red-600 hover:text-gray-300"
           >
             DELETE
           </button>
         </div>
       </div>
 
-      <div className="flex items-center justify-center p-12">
+      <div className="flex flex-col justify-center items-center p-12">
         <div className="mx-auto w-full max-w-[1000px] bg-teal-50 rounded-md	">
-          <form onSubmit={saveChanges} ref={formRef} className="py-6 px-9">
+          <form onSubmit={saveChanges} ref={formRef} className="px-9 py-6">
             <div className="mb-5">
               <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
                 Title
@@ -105,7 +111,8 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
                 name="title"
                 type="text"
                 placeholder="Enter Blog Title"
-                defaultValue={blog.title}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
               />
             </div>
@@ -118,7 +125,8 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
                 name="content"
                 className="w-full min-h-[20rem] rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
                 placeholder="Enter content here..."
-                defaultValue={blog.content}
+                value={md}
+                onChange={(e) => setMd(e.target.value)}
               ></textarea>
             </div>
             <div className="mb-5">
@@ -128,13 +136,15 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
               <select
                 id="countries"
                 className="w-full md:w-1/2  rounded-md border border-[#e0e0e0] bg-white py-3 px-8 text-base font-medium text-black outline-none focus:border-emerald-700 focus:shadow-md"
+                name="category"
+                defaultValue={blog.categoryName}
               >
-                <option selected>
-                  {blog.category ? blog.category : "Choose your Category"}
-                </option>
-
-                {categories.map((category) => {
-                  return <option value={category}>{category}</option>;
+                {categories.map((category, idx) => {
+                  return (
+                    <option value={category.name} key={idx}>
+                      {category.name}
+                    </option>
+                  );
                 })}
               </select>
               {/* <input
@@ -156,7 +166,7 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
                 defaultValue={blog.priority}
               />
             </div>
-            <div className="mb-6 pt-4">
+            <div className="pt-4 mb-6">
               {/* <label className="mb-3 block font-poppins font-bold text-xl text-[#07074D]">
                 Upload Cover Image
               </label> */}
@@ -194,12 +204,18 @@ const EditBlog: FC<EditBlogProps> = ({ blog }) => {
             <div>
               <button
                 type="submit"
-                className="hover:shadow-form w-full rounded-md bg-emerald-700 py-3 px-8 text-center text-base font-semibold text-white outline-none"
+                className="px-8 py-3 w-full text-base font-semibold text-center text-white bg-emerald-700 rounded-md outline-none hover:shadow-form"
               >
                 Save Changes
               </button>
             </div>
           </form>
+        </div>
+        <div className="mt-8 w-full border-t-2 border-gray-800">
+          <p className="mt-4 mb-2 text-5xl font-bold text-center">{title}</p>
+          <div className="">
+            <Blog content={md} />
+          </div>
         </div>
       </div>
     </>
@@ -223,8 +239,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   let blog = await prisma?.blog.findUnique({ where: { id: blogId } });
   if (!blog) return { redirect: { statusCode: 302, destination: "/admin/" } };
 
+  const categories = await prisma?.category.findMany();
+
   if (user.id === 1 || blog.authorId === user.id) {
-    return { props: { blog: JSON.parse(JSON.stringify(blog)) } };
+    return { props: { blog: JSON.parse(JSON.stringify(blog)), categories } };
   } else {
     return { redirect: { statusCode: 302, destination: "/401" } };
   }

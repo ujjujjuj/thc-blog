@@ -56,7 +56,7 @@ export default async function handler(
       slug: slugify(data.fields.title, { lower: true, strict: true }),
       priority: parseInt(data.fields.priority),
       coverImage: data.fields.coverImage,
-      category: data.fields.category,
+      category: { connect: { name: data.fields.category } },
     },
   });
 

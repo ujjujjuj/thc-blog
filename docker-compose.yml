@@ -5,17 +5,17 @@ services:
     command: sh -c "yarn && yarn prisma db push && yarn prisma db seed && yarn build && yarn start"
     ports:
       - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db/thc
     working_dir: /app
     volumes:
-      - ./public/uploads:/app/public/uploads
+      - ./:/app
   db:
     image: postgres:alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
 volumes:

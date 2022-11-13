@@ -19,9 +19,9 @@ const main = async () => {
 
   const categories = await Promise.all([
     prisma.category.upsert({
-      where: { name: "Travel" },
+      where: { name: "Default" },
       update: {},
-      create: { name: "Travel" },
+      create: { name: "Default" },
     }),
     await prisma.category.upsert({
       where: { name: "Comic" },

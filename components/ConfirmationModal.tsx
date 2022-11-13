@@ -3,13 +3,13 @@ import { FC } from "react";
 interface ConfirmationModalProps {
   onConfirm: () => void;
   onReject: () => void;
-  message: "";
+  message: string;
 }
 
 const ConfirmationModal: FC<ConfirmationModalProps> = ({
   onConfirm,
   onReject,
-  message,
+  message = "",
 }) => {
   return (
     <>
