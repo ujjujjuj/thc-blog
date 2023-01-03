@@ -20,6 +20,7 @@ model Blog {
   id           Int        @id @default(autoincrement())
   title        String     @unique
   slug         String     @unique
+  clicks       Int        @default(0)
   content      String     @default("")
   coverImage   String     @default("/cover.png")
   category     Category   @relation(fields:[categoryName], references: [name])

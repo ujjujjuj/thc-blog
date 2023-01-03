@@ -1,5 +1,5 @@
 const toBase64 = (str: string) =>
-  typeof window === "undefined"
+  typeof window === "undefined" // fuckng ssr
     ? Buffer.from(str).toString("base64")
     : window.btoa(str);
 

@@ -1,11 +1,10 @@
 const MAX_LEN = 133;
 
-const getDescription = (content: string) => {
+const getDescription = (content: string): string => {
   const lines = content.split("\n");
   let desc = "";
   for (const line of lines) {
-    console.log(line);
-
+    // remove all headings and sorted+unsorted list items
     if (
       line[0] !== "#" &&
       line[0] !== "-" &&

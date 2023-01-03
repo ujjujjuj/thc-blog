@@ -9,9 +9,12 @@ import { GetServerSideProps } from "next";
 import { FC } from "react";
 import { prisma } from "../../prisma/db";
 import Blog from "../../components/Blog";
+import getTopBlogs from "../../utils/getTopBlogs";
+import { Blog as BlogType } from "@prisma/client";
 
 interface BlogViewProps {
   blog: any;
+  topBlogs: BlogType[];
 }
 
 const months = [
@@ -29,10 +32,10 @@ const months = [
   "December",
 ];
 
-const BlogView: FC<BlogViewProps> = ({ blog }) => {
-  const router = useRouter();
+const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
+  // const router = useRouter();
   const width = useWindowWidth();
-  console.log(blog);
+  // console.log(blog);
   const blogDate = new Date(blog.createdAt);
 
   return (
@@ -75,8 +78,9 @@ const BlogView: FC<BlogViewProps> = ({ blog }) => {
                 <p className="text-3xl font-bold font-euclid">
                   Editor picks just for you
                 </p>
-                <OtherBlogs />
-                <OtherBlogs />
+                {topBlogs.map((topBlog, idx) => (
+                  <OtherBlogs key={idx} blog={topBlog} />
+                ))}
               </div>
             </>
           ) : null}
@@ -88,8 +92,9 @@ const BlogView: FC<BlogViewProps> = ({ blog }) => {
               <p className="text-3xl font-bold font-euclid">
                 Editor picks just for you
               </p>
-              <OtherBlogs />
-              <OtherBlogs />
+              {topBlogs.map((topBlog, idx) => (
+                <OtherBlogs key={idx} blog={topBlog} />
+              ))}
             </div>
           </>
         ) : null}
@@ -114,8 +119,20 @@ export const getServerSideProps: GetServerSideProps = async ({
     include: { author: { select: { name: true } } },
   });
   if (!blog) return { notFound: true };
+  const topBlogs = await getTopBlogs(2, blog.id);
 
-  return { props: { blog: JSON.parse(JSON.stringify(blog)) } };
+  prisma.blog
+    .update({
+      where: { id: blog.id },
+      data: { clicks: { increment: 1 } },
+    })
+    .then(); // TOODO: figure out why increment doesn't work without .then()
+  return {
+    props: {
+      blog: JSON.parse(JSON.stringify(blog)),
+      topBlogs: JSON.parse(JSON.stringify(topBlogs)),
+    },
+  };
 };
 
 export default BlogView;

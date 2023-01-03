@@ -36,10 +36,13 @@ const Nav = () => {
         <div className="flex justify-between items-center">
           <div>
             <span
-              className="text-3xl font-bold cursor-pointer font-logo"
+              className="relative text-3xl font-bold cursor-pointer font-logo"
               onClick={() => Router.push("/")}
             >
               thc
+              <span className="absolute top-0 right-0 text-2xl translate-x-3/4 -translate-y-1/3">
+                +
+              </span>
             </span>
           </div>
           <div
@@ -52,7 +55,6 @@ const Nav = () => {
               <NavLink href="/" text="BLOGS" />
               <NavLink href="/memories" text="MEMORIES" />
               <NavLink href="/trips" text="TRIPS" />
-              <NavLink href="/aaa" text="404" />
             </div>
             <IconContext.Provider value={{ size: "1.4rem" }}>
               <div className="flex gap-5 items-center cursor-pointer">
@@ -80,7 +82,7 @@ const Nav = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://github.com/thc"
+                  href="https://github.com/thcnsut"
                 >
                   <FiGithub className="opacity-70 transition-opacity hover:opacity-100" />
                 </a>

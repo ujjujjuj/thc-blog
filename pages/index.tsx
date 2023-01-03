@@ -1,16 +1,21 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import Nav from "../components/Nav";
 import { FaRegUserCircle } from "react-icons/fa";
 import OtherBlogs from "../components/OtherBlogs";
 import Footer from "../components/Footer";
 import CategorySelect from "../components/CategorySelect";
-import { useState } from "react";
-import BlogCard from "../components/BlogCard";
+import { useEffect, useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Router from "next/router";
 import shimmerUrl from "../utils/shimmerUrl";
 import useWindowWidth from "../hooks/useWindowWidth";
-import { current } from "@reduxjs/toolkit";
+import getTopBlogs from "../utils/getTopBlogs";
+import getDescription from "../utils/getDescription";
+import BlogCard from "../components/BlogCard";
+import { Blog } from "@prisma/client";
+import axios from "axios";
+import getFormattedDate from "../utils/getFormattedDate";
 
 const categories = [
   "Travel",
@@ -22,83 +27,44 @@ const categories = [
   "Love",
   "Political",
 ];
-const categblogs = [
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-  22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-  41, 42, 43, 44, 45, 46,
-];
 
-const Home: NextPage = () => {
+interface HomeProps {
+  topBlogs: any;
+}
+
+const Home: NextPage<HomeProps> = ({ topBlogs }) => {
+  const topBlog = topBlogs[0];
+  topBlogs = topBlogs.slice(1);
   const [cat, setCat] = useState(0);
   const width = useWindowWidth();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsperPage, setItemsperPage] = useState(6);
-  const [pageNumberLimit, setPageNumberLimit] = useState(5);
-  const [maxpageNumberLimit, setMaxPageNumberLimit] = useState(5);
-  const [minpageNumberLimit, setMinPageNumberLimit] = useState(0);
-  const pages = [];
+  const [currentPage, setCurrentPage] = useState(0);
+  const [numPages, setNumPages] = useState(5);
+  const [blogs, setBlogs] = useState([]);
 
-  const handleClick = (e: any) => {
-    setCurrentPage(Number(e.target.id));
-    console.log(Number(e.target.id));
-  };
+  useEffect(() => {
+    const abortController = new AbortController();
+    const category = cat === 0 ? "All" : categories[cat - 1];
+    axios
+      .post(
+        "/api/blog/all",
+        { category: category, page: currentPage },
+        { signal: abortController.signal }
+      )
+      .then((res) => {
+        setBlogs(res.data.blogs);
+        setNumPages(Math.ceil(res.data.totalBlogs / 6));
+      })
+      .catch((e) => {
+        if (e.name !== "CanceledError") {
+          throw e;
+        }
+      });
 
-  const handleNextButton = () => {
-    if (currentPage != pages.length) {
-      setCurrentPage(currentPage + 1);
-    }
-
-    if (currentPage + 1 > maxpageNumberLimit && currentPage != pages.length) {
-      setMaxPageNumberLimit(maxpageNumberLimit + pageNumberLimit);
-      setMinPageNumberLimit(minpageNumberLimit + pageNumberLimit);
-    }
-  };
-
-  const handlePrevButton = () => {
-    if (currentPage != 1) {
-      setCurrentPage(currentPage - 1);
-    }
-
-    if ((currentPage - 1) % pageNumberLimit == 0 && currentPage != 1) {
-      setMaxPageNumberLimit(maxpageNumberLimit - pageNumberLimit);
-      setMinPageNumberLimit(minpageNumberLimit + -pageNumberLimit);
-    }
-  };
-
-  for (let i = 1; i <= Math.ceil(categblogs.length / itemsperPage); i++) {
-    pages.push(i);
-  }
-
-  const indexoflastItem = currentPage * itemsperPage;
-  const indexoffirstItem = indexoflastItem - itemsperPage;
-  const currentItems = categblogs.slice(
-    indexoffirstItem,
-    indexoflastItem < categblogs.length ? indexoflastItem : categblogs.length
-  );
-
-  const renderPageNumbers = pages.map((number) => {
-    if (number < maxpageNumberLimit + 1 && number > minpageNumberLimit) {
-      return (
-        <>
-          <li key={number}>
-            <button
-              onClick={(e) => handleClick(e)}
-              className={`${
-                currentPage === number ? "bg-[#F1F5F9]" : "bg-white"
-              } w-10 h-10 text-gray-800 transition-colors duration-150 rounded-full focus:shadow-outline active:bg-slate-300 hover:bg-indigo-100`}
-            >
-              <p id={number.toString()} className="font-bold font-poppins">
-                {number}
-              </p>
-            </button>
-          </li>
-        </>
-      );
-    } else {
-      return null;
-    }
-  });
+    return () => {
+      abortController.abort();
+    };
+  }, [currentPage, cat]);
 
   return (
     <>
@@ -113,7 +79,7 @@ const Home: NextPage = () => {
         <div className="flex flex-col gap-20 w-full lg:flex-row font-euclid">
           <div
             className="flex-1 transition-transform cursor-pointer hover:scale-hover"
-            onClick={() => Router.push("/blog/blog-text-slug")}
+            onClick={() => Router.push(`/blog/${topBlog.slug}`)}
           >
             <div className="relative h-80 md:h-[32rem]">
               <Image
@@ -126,19 +92,16 @@ const Home: NextPage = () => {
               />
             </div>
             <div className="flex justify-between pt-6 w-full text-gray-600">
-              <span>October 18, 2022</span>
+              <span>{getFormattedDate(topBlog.createdAt)}</span>
               <div className="flex gap-2 items-center">
                 <FaRegUserCircle />
-                Ujjwal Dimri
+                {topBlog.author.name}
               </div>
             </div>
             <div className="pt-5">
-              <p className="text-3xl font-bold md:text-5xl">
-                This is the title of your Blog Cover Story
-              </p>
+              <p className="text-3xl font-bold md:text-5xl">{topBlog.title} </p>
               <p className="pt-5 text-lg font-medium text-gray-400">
-                The Blog Description or thrity words something of random
-                gibbrish i don&nbsp;t know man but just something here
+                {getDescription(topBlog.content)}
               </p>
             </div>
           </div>
@@ -150,9 +113,9 @@ const Home: NextPage = () => {
             >
               Trending Right Now
             </h3>
-            <OtherBlogs />
-            <OtherBlogs />
-            <OtherBlogs />
+            {topBlogs.map((topBlog: any, idx: any) => (
+              <OtherBlogs key={idx} blog={topBlog} />
+            ))}
           </div>
         </div>
       </div>
@@ -165,48 +128,39 @@ const Home: NextPage = () => {
           />
         </div>
         <div className="flex flex-wrap flex-1 col-span-3 gap-12 justify-center items-center">
-          {currentItems.map((e,idx) => {
-            return <BlogCard key={idx} />;
-          })}
+          {blogs.map((blog: any, idx: number) => (
+            <BlogCard key={idx} blog={blog} />
+          ))}
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center px-5 py-4 text-black bg-white lg:gap-12 md:py-12 lg:flex-row md:px-10">
-        <ul className="inline-flex space-x-2 lg:ml-[15rem]">
-          <li>
-            <button
-              onClick={handlePrevButton}
-              className="flex justify-center items-center w-10 h-10 text-gray-800 rounded-full transition-colors duration-150 focus:shadow-outline hover:bg-indigo-100"
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                <path
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                  fillRule="evenodd"
-                ></path>
-              </svg>
-            </button>
-          </li>
-          {renderPageNumbers}
-          <li>
-            <button
-              onClick={handleNextButton}
-              className="flex justify-center items-center w-10 h-10 text-gray-800 bg-white rounded-full transition-colors duration-150 focus:shadow-outline hover:bg-indigo-100"
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                <path
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                  fillRule="evenodd"
-                ></path>
-              </svg>
-            </button>
-          </li>
-        </ul>
+      <div className="flex justify-center items-center px-5 py-4 text-black bg-white md:py-12 lg:flex-row md:px-10">
+        <button className="px-2 py-2 rounded-full hover:bg-gray-200 transition-colors text-gray-400">
+          <FiChevronLeft />
+        </button>
+        {Array.from({ length: numPages }).map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentPage(idx)}
+            className={`px-4 py-2 rounded-full hover:bg-gray-200 transition-colors ${
+              currentPage === idx ? "text-black" : "text-gray-400"
+            }`}
+          >
+            {idx + 1}
+          </button>
+        ))}
+        <button className="px-2 py-2 rounded-full hover:bg-gray-200 transition-colors text-gray-400">
+          <FiChevronRight />
+        </button>
       </div>
 
       <Footer />
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const topBlogs = await getTopBlogs();
+  return { props: { topBlogs: JSON.parse(JSON.stringify(topBlogs)) } };
 };
 
 export default Home;

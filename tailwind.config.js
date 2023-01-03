@@ -14,6 +14,7 @@ module.exports = {
         euclid: ["EuclidCircularA", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
         barlow: ["Barlow", "sans-serif"],
+        
       },
       colors: {
         dark: "#111111",
