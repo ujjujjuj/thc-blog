@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import Cookies from "cookies";
 import { IncomingMessage, ServerResponse } from "http";
+import { JsonWebTokenError } from "jsonwebtoken";
 import { prisma } from "../prisma/db";
 import { decode } from "./jwt";
 
@@ -16,6 +17,7 @@ export default async function addAuth(
       id = decoded.id;
     } catch (e) {
       console.log(e);
+      console.log(cookies.get("auth"));
       return null;
     }
     const user = await prisma.user.findUnique({

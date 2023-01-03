@@ -8,6 +8,7 @@ import addAuth from "../../utils/addAuth";
 import { FC } from "react";
 import { useRouter } from "next/router";
 import ConfirmationModal from "../../components/ConfirmationModal";
+import { prisma } from "../../prisma/db";
 
 import { IoArrowBackSharp } from "react-icons/io5";
 import Router from "next/router";

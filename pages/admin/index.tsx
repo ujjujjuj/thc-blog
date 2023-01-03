@@ -9,6 +9,7 @@ import addAuth from "../../utils/addAuth";
 import { Blog } from "@prisma/client";
 import { FC } from "react";
 import { IoMdDoneAll } from "react-icons/io";
+import { prisma } from "../../prisma/db";
 
 import Image from "next/image";
 import getDescription from "../../utils/getDescription";
@@ -211,10 +212,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   let blogs: Blog[] = [];
   if (user.id === 1) {
-    blogs = (await prisma?.blog.findMany()) ?? [];
+    blogs = (await prisma.blog.findMany()) ?? [];
   } else {
     blogs =
-      (await prisma?.blog.findMany({ where: { authorId: user.id } })) ?? [];
+      (await prisma.blog.findMany({ where: { authorId: user.id } })) ?? [];
   }
 
   return { props: { blogs: JSON.parse(JSON.stringify(blogs)) } };

@@ -9,7 +9,7 @@ export default Logout;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const cookies = new Cookies(req, res);
-  cookies.set("auth", "", { maxAge: 0 });
+  cookies.set("auth", "", { maxAge: 0, overwrite: true });
   return {
     redirect: {
       destination: "/admin/login",

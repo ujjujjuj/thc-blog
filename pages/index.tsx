@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
         { category: category, page: currentPage },
         { signal: abortController.signal }
       )
-      .then((res) => {
+    .then((res) => {
         setBlogs(res.data.blogs);
         setNumPages(Math.ceil(res.data.totalBlogs / 6));
       })

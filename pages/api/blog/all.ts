@@ -15,8 +15,6 @@ export default async function handler(
     return res.status(400).send("");
   }
 
-  console.log("OK");
-
   const blogs = await prisma.blog.findMany({
     where:
       req.body.category !== "All"
