@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
         { category: category, page: currentPage },
         { signal: abortController.signal }
       )
-    .then((res) => {
+      .then((res) => {
         setBlogs(res.data.blogs);
         setNumPages(Math.ceil(res.data.totalBlogs / 6));
       })
@@ -98,7 +98,7 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
                 {topBlog.author.name}
               </div>
             </div>
-            <div className="pt-5">
+            <div className="pt-5 mb-5">
               <p className="text-3xl font-bold md:text-5xl">{topBlog.title} </p>
               <p className="pt-5 text-lg font-medium text-gray-400">
                 {getDescription(topBlog.content)}

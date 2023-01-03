@@ -63,9 +63,12 @@ const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
                 {blog.author.name}
               </div>
             </div>
-            <div className="py-12 font-euclid">
-              <span className="text-5xl font-bold">{blog.title}</span>
-              <Blog content={blog.content} />
+            <div className="py-12 font-euclid  ">
+              <span className="text-5xl font-bold py-3">{blog.title}</span>
+              {/* <br /> <br /> */}
+              <div className="mt-5">
+                <Blog content={blog.content} />
+              </div>
               {/* <p className="my-4 mt-4 text-lg text-gray-400 whitespace-pre-line font-small">
                 {blog.content}
               </p> */}

@@ -20,8 +20,8 @@ const BlogCard: NextPage<BlogCardProps> = ({ blog }) => {
     >
       <div className="relative w-full h-40">
         <Image
-          src="/blog1.png"
-          alt="blog image"
+          src={blog.coverImage}
+          alt={blog.slug}
           layout="fill"
           objectFit="cover"
           placeholder="blur"
@@ -34,7 +34,7 @@ const BlogCard: NextPage<BlogCardProps> = ({ blog }) => {
         </span>
         <p className="text-2xl font-bold">{blog.title}</p>
         <p className="text-base font-light text-gray-600">
-          {getDescription(blog.content)}
+          {getDescription(blog.content).slice(0, 170)}....
         </p>
         <div className="flex gap-2 items-center text-gray-600">
           <FaRegUserCircle />

@@ -16,10 +16,10 @@ export default async function handler(
   }
 
   const blogs = await prisma.blog.findMany({
-    where:
-      req.body.category !== "All"
-        ? { categoryName: req.body.category }
-        : undefined,
+    where: {
+      published: true,
+      categoryName: req.body.category !== "All" ? req.body.category : undefined,
+    },
     skip: PAGE_SIZE * req.body.page,
     take: PAGE_SIZE,
     include: { author: { select: { name: true } } },
@@ -27,7 +27,7 @@ export default async function handler(
   });
 
   // TODO: do this in a transaction
-  const totalBlogs = await prisma.blog.count(); 
+  const totalBlogs = await prisma.blog.count();
 
-  return res.json({ blogs,totalBlogs });
+  return res.json({ blogs, totalBlogs });
 }

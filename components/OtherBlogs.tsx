@@ -4,6 +4,7 @@ import Router from "next/router";
 import { FC } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import shimmerUrl from "../utils/shimmerUrl";
+import getFormattedDate from "../utils/getFormattedDate";
 
 interface OtherBlogsProps {
   blog: any;
@@ -27,7 +28,9 @@ const OtherBlogs: FC<OtherBlogsProps> = ({ blog }) => {
           />
         </div>
         <div className="flex flex-col flex-1 gap-4">
-          <span className="text-gray-600">October 18, 2022</span>
+          <span className="text-gray-600">
+            {getFormattedDate(blog.createdAt)}
+          </span>
           <span className="text-xl md:text-2xl">{blog.title}</span>
           <div className="flex gap-2 items-center text-gray-600">
             <FaRegUserCircle />

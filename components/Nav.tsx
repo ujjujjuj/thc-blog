@@ -2,7 +2,13 @@ import Link from "next/link";
 import { FC, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { IconContext } from "react-icons";
-import { FiFacebook, FiGithub, FiInstagram, FiYoutube } from "react-icons/fi";
+import {
+  FiFacebook,
+  FiGithub,
+  FiInstagram,
+  FiMail,
+  FiYoutube,
+} from "react-icons/fi";
 import { BiMenu } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
 import useWindowWidth from "../hooks/useWindowWidth";
@@ -61,9 +67,9 @@ const Nav = () => {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://www.instagram.com/thc.nsut/"
+                  href="mailto: thcclubnsut@gmail.com"
                 >
-                  <FiFacebook className="opacity-70 transition-opacity hover:opacity-100" />
+                  <FiMail className="opacity-70 transition-opacity hover:opacity-100" />
                 </a>
                 <a
                   target="_blank"
