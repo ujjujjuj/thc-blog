@@ -24,7 +24,7 @@ export default async function handler(
       resolve({ err, fields, files });
     });
   });
-  console.log(data);
+
   if (!data.fields.blogId) {
     return res.status(400).send("");
   }
@@ -35,7 +35,7 @@ export default async function handler(
   }
   let blogId = parseInt(data.fields.blogId);
   let blog = await prisma.blog.findUnique({ where: { id: blogId } });
-  if (!blog || (user.id !== 1 && blog.authorId !== user.id)) {
+  if (!blog || (user.role !== "ADMIN" && blog.authorId !== user.id)) {
     return res.status(401).send("");
   }
   if (data.files.coverImage) {

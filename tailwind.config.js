@@ -21,7 +21,7 @@ module.exports = {
         darker: "#080808",
       },
       scale: {
-        hover: "1.03",
+        hover: "1.02",
       },
     },
   },

@@ -16,8 +16,6 @@ export default async function addAuth(
       let decoded: any = decode(cookies.get("auth") ?? "");
       id = decoded.id;
     } catch (e) {
-      console.log(e);
-      console.log(cookies.get("auth"));
       return null;
     }
     const user = await prisma.user.findUnique({

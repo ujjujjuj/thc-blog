@@ -13,7 +13,7 @@ import useWindowWidth from "../hooks/useWindowWidth";
 import getTopBlogs from "../utils/getTopBlogs";
 import getDescription from "../utils/getDescription";
 import BlogCard from "../components/BlogCard";
-import { Blog } from "@prisma/client";
+import Head from "next/head";
 import axios from "axios";
 import getFormattedDate from "../utils/getFormattedDate";
 
@@ -68,12 +68,14 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
 
   return (
     <>
+      <Head>
+        <title>Blogs | THC</title>
+      </Head>
       <Nav />
       <div className="flex flex-col items-center px-5 py-8 w-full md:px-10">
         <div className="mb-8 w-full text-center border-b-2 border-gray-800">
           <h1 className="font-poppins font-black text-[16vw] md:text-9xl pb-4 ">
             THC BLOG
-            {/* <div className="my-8 w-full h-px bg-gray-800"></div> */}
           </h1>
         </div>
         <div className="flex flex-col gap-20 w-full lg:flex-row font-euclid">
@@ -134,7 +136,7 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
         </div>
       </div>
       <div className="flex justify-center items-center px-5 py-4 text-black bg-white md:py-12 lg:flex-row md:px-10">
-        <button className="px-2 py-2 rounded-full hover:bg-gray-200 transition-colors text-gray-400">
+        <button className="px-2 py-2 text-gray-400 rounded-full transition-colors hover:bg-gray-200">
           <FiChevronLeft />
         </button>
         {Array.from({ length: numPages }).map((_, idx) => (
@@ -148,7 +150,7 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
             {idx + 1}
           </button>
         ))}
-        <button className="px-2 py-2 rounded-full hover:bg-gray-200 transition-colors text-gray-400">
+        <button className="px-2 py-2 text-gray-400 rounded-full transition-colors hover:bg-gray-200">
           <FiChevronRight />
         </button>
       </div>

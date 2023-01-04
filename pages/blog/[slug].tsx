@@ -11,6 +11,8 @@ import { prisma } from "../../prisma/db";
 import Blog from "../../components/Blog";
 import getTopBlogs from "../../utils/getTopBlogs";
 import { Blog as BlogType } from "@prisma/client";
+import Head from "next/head";
+import getDescription from "../../utils/getDescription";
 
 interface BlogViewProps {
   blog: any;
@@ -33,13 +35,23 @@ const months = [
 ];
 
 const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
-  // const router = useRouter();
   const width = useWindowWidth();
-  // console.log(blog);
   const blogDate = new Date(blog.createdAt);
 
   return (
     <>
+      <Head>
+        <title>{blog.title}</title>
+        <meta property="og:title" content={blog.title} />
+        <meta
+          property="og:description"
+          content={getDescription(blog.content)}
+        />
+        <meta
+          property="og:image"
+          content={"https://thcplus.in" + blog.coverImage}
+        />
+      </Head>
       <Nav />
       <div className="px-5 py-8 md:px-10">
         <div className="flex gap-20 w-full font-euclid">
@@ -63,8 +75,8 @@ const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
                 {blog.author.name}
               </div>
             </div>
-            <div className="py-12 font-euclid  ">
-              <span className="text-5xl font-bold py-3">{blog.title}</span>
+            <div className="py-12 font-euclid">
+              <span className="py-3 text-5xl font-bold">{blog.title}</span>
               {/* <br /> <br /> */}
               <div className="mt-5">
                 <Blog content={blog.content} />

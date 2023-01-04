@@ -13,6 +13,7 @@ import { prisma } from "../../prisma/db";
 
 import Image from "next/image";
 import getDescription from "../../utils/getDescription";
+import Head from "next/head";
 
 interface AdminHomeProps {
   blogs: Array<any>;
@@ -20,7 +21,6 @@ interface AdminHomeProps {
 
 const Admin: FC<AdminHomeProps> = ({ blogs }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  console.log(blogs);
 
   const newBlog = () => {
     axios
@@ -36,6 +36,9 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
 
   return (
     <>
+      <Head>
+        <title>Admin Home | THC</title>
+      </Head>
       <AdminNav />
       {modalOpen ? (
         <ConfirmationModal
@@ -88,7 +91,6 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                   <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
                     <h3>
                       <a
-                        href="javascript:void(0)"
                         className="
                         font-semibold
                         text-dark text-xl
@@ -109,7 +111,6 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                       {getDescription(blog.content)}
                     </p>
                     <a
-                      href="javascript:void(0)"
                       className="
                      inline-block
                      py-2
@@ -155,7 +156,6 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                   <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
                     <h3>
                       <a
-                        href="javascript:void(0)"
                         className="
                         font-semibold
                         text-dark text-xl
@@ -176,7 +176,6 @@ const Admin: FC<AdminHomeProps> = ({ blogs }) => {
                       {getDescription(blog.content)}
                     </p>
                     <a
-                      href="javascript:void(0)"
                       className="
                      inline-block
                      py-2
@@ -211,7 +210,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   }
 
   let blogs: Blog[] = [];
-  if (user.id === 1) {
+  if (user.role === "ADMIN") {
     blogs = (await prisma.blog.findMany()) ?? [];
   } else {
     blogs =

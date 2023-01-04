@@ -14,6 +14,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import Router from "next/router";
 import { Category } from "@prisma/client";
 import Blog from "../../components/Blog";
+import Head from "next/head";
 
 interface EditBlogProps {
   blog: any;
@@ -73,6 +74,9 @@ const EditBlog: FC<EditBlogProps> = ({ blog, categories }) => {
 
   return (
     <>
+      <Head>
+        <title>Edit Blog | THC</title>
+      </Head>
       <AdminNav />
       {modalOpen ? (
         <ConfirmationModal
@@ -242,7 +246,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const categories = await prisma?.category.findMany();
 
-  if (user.id === 1 || blog.authorId === user.id) {
+  if (user.role === "ADMIN" || blog.authorId === user.id) {
     return { props: { blog: JSON.parse(JSON.stringify(blog)), categories } };
   } else {
     return { redirect: { statusCode: 302, destination: "/401" } };

@@ -62,7 +62,7 @@ const Nav = () => {
               <NavLink href="/memories" text="MEMORIES" />
               <NavLink href="/trips" text="TRIPS" />
             </div>
-            <IconContext.Provider value={{ size: "1.4rem" }}>
+            <IconContext.Provider value={{ size: "20px" }}>
               <div className="flex gap-5 items-center cursor-pointer">
                 <a
                   target="_blank"
