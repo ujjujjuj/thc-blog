@@ -47,10 +47,13 @@ const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
           property="og:description"
           content={getDescription(blog.content)}
         />
+        <meta property="og:type" content="article" />
         <meta
           property="og:image"
-          content={"https://thcplus.in" + blog.coverImage}
+          itemProp="image"
+          content={"https://blog.thcplus.in" + blog.coverImage}
         />
+        <meta property="og:site_name" content="THC - The Hiking Club"></meta>
       </Head>
       <Nav />
       <div className="px-5 py-8 md:px-10">
