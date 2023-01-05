@@ -13,34 +13,33 @@ import getTopBlogs from "../../utils/getTopBlogs";
 import { Blog as BlogType } from "@prisma/client";
 import Head from "next/head";
 import getDescription from "../../utils/getDescription";
+import getFormattedDate from "../../utils/getFormattedDate";
+import { NextSeo } from "next-seo";
 
 interface BlogViewProps {
   blog: any;
   topBlogs: BlogType[];
 }
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
 const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
   const width = useWindowWidth();
-  const blogDate = new Date(blog.createdAt);
 
   return (
     <>
-      <Head>
+      <NextSeo
+        title={blog.title}
+        description={getDescription(blog.content)}
+        canonical={"https://blog.thcplus.in/blog/" + blog.slug}
+        openGraph={{
+          title: blog.title,
+          description: getDescription(blog.content),
+          url: "https://blog.thcplus.in/blog/" + blog.slug,
+          images: [{ url: "https://blog.thcplus.in" + blog.coverImage }],
+          siteName: "THC - The Hiking Club",
+        }}
+      />
+
+      {/* <Head>
         <title>{blog.title}</title>
         <meta property="og:title" content={blog.title} />
         <meta
@@ -54,7 +53,7 @@ const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
           content={"https://blog.thcplus.in" + blog.coverImage}
         />
         <meta property="og:site_name" content="THC - The Hiking Club"></meta>
-      </Head>
+      </Head> */}
       <Nav />
       <div className="px-5 py-8 md:px-10">
         <div className="flex gap-20 w-full font-euclid">
@@ -68,11 +67,7 @@ const BlogView: FC<BlogViewProps> = ({ blog, topBlogs }) => {
               />
             </div>
             <div className="flex justify-between pt-6 w-full text-gray-600">
-              <span>
-                {`${
-                  months[blogDate.getMonth()]
-                } ${blogDate.getDate()}, ${blogDate.getFullYear()}`}{" "}
-              </span>
+              <span>{getFormattedDate(blog.createdAt)}</span>
               <div className="flex gap-2 items-center">
                 <FaRegUserCircle />
                 {blog.author.name}
