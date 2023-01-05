@@ -40,6 +40,7 @@ export default async function handler(
   }
   if (data.files.coverImage) {
     await Jimp.read(data.files.coverImage.filepath).then((lenna) => {
+      console.log(path.join(process.cwd(), "public/uploads", `${blogId}.jpg`));
       lenna.write(path.join(process.cwd(), "public/uploads", `${blogId}.jpg`));
     });
     data.fields.coverImage = `/uploads/${blogId}.jpg`;

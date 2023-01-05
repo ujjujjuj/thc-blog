@@ -85,8 +85,8 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
           >
             <div className="relative h-80 md:h-[32rem]">
               <Image
-                src="/blog1.png"
-                alt="blog1"
+                src={topBlog.coverImage}
+                alt={topBlog.slug}
                 layout="fill"
                 objectFit="cover"
                 placeholder="blur"
