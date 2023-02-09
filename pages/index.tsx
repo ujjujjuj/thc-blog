@@ -136,21 +136,21 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
         </div>
       </div>
       <div className="flex justify-center items-center px-5 py-4 text-black bg-white md:py-12 lg:flex-row md:px-10">
-        <button className="px-2 py-2 text-gray-400 rounded-full transition-colors hover:bg-gray-200">
+        <button className="px-4 h-[48px] w-[48px] text-gray-400 rounded-full transition-colors hover:bg-gray-200">
           <FiChevronLeft />
         </button>
         {Array.from({ length: numPages }).map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentPage(idx)}
-            className={`px-4 py-2 rounded-full hover:bg-gray-200 transition-colors ${
+            className={`px-4  h-[48px] w-[48px] rounded-full hover:bg-gray-200 transition-colors ${
               currentPage === idx ? "text-black" : "text-gray-400"
             }`}
           >
             {idx + 1}
           </button>
         ))}
-        <button className="px-2 py-2 text-gray-400 rounded-full transition-colors hover:bg-gray-200">
+        <button className="px-4 text-gray-400 rounded-full transition-colors hover:bg-gray-200 h-[48px] w-[48px]">
           <FiChevronRight />
         </button>
       </div>
