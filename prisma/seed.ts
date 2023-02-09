@@ -64,8 +64,6 @@ const main = async () => {
       create: { name: "Political" },
     }),
   ]);
-
-  console.log({ admin, categories });
 };
 
 main()

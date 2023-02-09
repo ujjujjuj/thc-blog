@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <div className="text-white bg-dark">
         <div className="flex overflow-hidden flex-col mx-auto w-screen min-h-screen max-w-screen-3xl">
-          <Component {...pageProps} />
+        <Component {...pageProps} />
         </div>
         <ToastContainer />
       </div>

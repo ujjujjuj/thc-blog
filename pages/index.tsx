@@ -80,7 +80,7 @@ const Home: NextPage<HomeProps> = ({ topBlogs }) => {
         </div>
         <div className="flex flex-col gap-20 w-full lg:flex-row font-euclid">
           <div
-            className="flex-1 transition-transform cursor-pointer hover:scale-hover"
+            className="flex-[2] transition-transform cursor-pointer hover:scale-hover"
             onClick={() => Router.push(`/blog/${topBlog.slug}`)}
           >
             <div className="relative h-80 md:h-[32rem]">
