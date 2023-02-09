@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../prisma/db";
 import getAuth from "../../../utils/addAuth";
-import generateTitle from "../../../utils/generateTitle";
-import slugify from "slugify";
-import { hash } from "../../../utils/password";
 
 export default async function handler(
   req: NextApiRequest,
