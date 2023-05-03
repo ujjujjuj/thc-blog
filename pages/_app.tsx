@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
 import Head from "next/head";
+import NextNProgress from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,10 +16,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <div className="text-white bg-dark">
         <div className="flex overflow-hidden flex-col mx-auto w-screen min-h-screen max-w-screen-3xl">
-        <Component {...pageProps} />
+          <Component {...pageProps} />
         </div>
         <ToastContainer />
       </div>
+      <NextNProgress
+        height={3}
+        options={{ showSpinner: false }}
+        // color="#ff0000"
+      />
     </>
   );
 }
